@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Cooking app</string>
+    <string name="recipe_difficulty">Recipe difficulty</string>
+    <string name="exit">Exit</string>
+    <string name="save">Save</string>
+    <string name="recipe_ingredient">Recipe ingredient</string>
+    <string name="recipe_name">Recipe name</string>
+    <string name="recipe_tag">Recipe tag</string>
+</resources>

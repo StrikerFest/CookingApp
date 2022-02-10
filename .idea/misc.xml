@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/drawable/bg_white_rounded.xml" value="0.15625" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/drawable/ic_baseline_fastfood_24.xml" value="0.203125" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/activity_recipe_detail.xml" value="0.20625" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/activity_second.xml" value="0.20625" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/dialog_recipe.xml" value="0.4" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/fragment_fragment1.xml" value="0.275" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/fragment_fragment2.xml" value="0.2" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/fragment_fragment3.xml" value="0.1234375" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/ingredient_item.xml" value="0.4" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/ingredient_list.xml" value="0.2" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/recipe_detail.xml" value="0.264" />
+        <entry key="..\:/Study Documentation/ProjectHolder/Cookingapp/app/src/main/res/layout/recipe_item.xml" value="0.264" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
