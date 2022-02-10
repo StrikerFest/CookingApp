@@ -3,21 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment1">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Tab 1"
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DOG"
-        />
+        android:layout_height="match_parent">
+    <!-- TODO: Update blank fragment layout -->
+        <ImageView
+            android:id="@+id/ivRecipeImage"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/ic_baseline_fastfood_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="25dp"/>
 
+        <TextView
+            android:id="@+id/tvRecipeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Food name"
+            app:layout_constraintTop_toBottomOf="@id/ivRecipeImage"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="20dp"
+            android:textSize="25sp"
+             />
+        <Button
+            android:id="@+id/btnRecipeTitle"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="Recipe"
+            android:layout_marginLeft="36dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@id/tvRecipeName"
+            android:layout_marginTop="20dp"
+            android:textSize="22dp"
+            />
+        <Button
+            android:id="@+id/btnInstructionTitle"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="Instruction"
+            app:layout_constraintTop_toBottomOf="@id/tvRecipeName"
+            android:layout_marginRight="36dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="20dp"
+            android:textSize="15dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

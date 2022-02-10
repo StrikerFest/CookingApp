@@ -109,11 +109,12 @@ public class fragment2 extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 
-		View RootView = inflater.inflate(R.layout.fragment_fragment2, container, false);
 		// Inflate the layout for this fragment
+		View RootView = inflater.inflate(R.layout.fragment_fragment2, container, false);
 		lvIngredientList = (ListView) RootView.findViewById(R.id.lvRecipeIngredientList);
 		listIngredient = new ArrayList<>();
 		recipe = (Recipe) getActivity().getIntent().getSerializableExtra("recipe");
+
 		// ADAPTER - create new ingredient adapter
 		IngredientAdapter ingredientAdapter = new IngredientAdapter(getActivity(), listIngredient);
 		// API - call API and add data to listIngredient
