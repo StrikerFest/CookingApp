@@ -175,9 +175,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements Serializa
 	// Initial UI - get view
 	private void initUI() {
 
-//		tvRecipeName = findViewById(R.id.tvRecipeName);
-//		ivRecipeImage = findViewById(R.id.ivRecipeImage);
-//		lvIngredientList = findViewById(R.id.lvRecipeIngredientList);
 		// TabLayout
 		tabLayout = findViewById(R.id.tabLayout);
 
@@ -190,43 +187,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Serializa
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recipe_detail);
 
-//		// Initialize list to prevent working on null object
-//		listIngredient = new ArrayList<>();
-//
 		initUI();
-		// get intent
-		recipe = (Recipe) getIntent().getSerializableExtra("recipe");
-//
-//		tvRecipeName.setText(recipe.getName());
-//
-//		// IMAGE VIEW - set imageView to API's url
-//		URL newURL = null;
-//		// Create new URL which take the api's image url
-//		try {
-//			newURL = new URL(recipe.getImage());
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		// Download image from URL and get the value
-//		Bitmap mIcon_val = null;
-//		try {
-//			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		// Set image view value
-//		ivRecipeImage.setImageBitmap(mIcon_val);
-//
-//		// ADAPTER - create new ingredient adapter
-//		IngredientAdapter ingredientAdapter = new IngredientAdapter(RecipeDetailActivity.this, listIngredient);
-//
-//		// API - call API and add data to listIngredient
-//		ingredientCallById(recipe.getId(),ingredientAdapter,listIngredient);
-//
-//		// LISTVIEW - set adapter to list view
-//		lvIngredientList.setAdapter(ingredientAdapter);
 
 		// TAB LAYOUT
 		tabLayout.setupWithViewPager(viewPager);
@@ -236,8 +197,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements Serializa
 		vpAdapter.addFragment(new fragment3(),"Instruction");
 
 		viewPager.setAdapter(vpAdapter);
-
-//		ingredientAdapter.notifyDataSetChanged();
 
 	}
 }
