@@ -37,9 +37,9 @@ public class fragment1 extends Fragment {
 							 Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		View RootView = inflater.inflate(R.layout.fragment_fragment1, container, false);
+
 		tvRecipeName = (TextView) RootView.findViewById(R.id.tvRecipeName);
 		ivRecipeImage = (ImageView) RootView.findViewById(R.id.ivRecipeImage);
-
 
 		recipe = (Recipe) getActivity().getIntent().getSerializableExtra("recipe");
 		tvRecipeName.setText(recipe.getName());

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/tvInstructionDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvInstructionTitle"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:text="Cook rice, burn water, be happy, happy, happy, there go my old girl friend, there goes another diamond, all those midnight promises i guess they don't mean a thing"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
