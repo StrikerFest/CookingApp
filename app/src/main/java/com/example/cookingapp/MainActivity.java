@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 							String strMealThumb = jsonMealIndex.getString("strMealThumb");
 
 							// ACCESS API - Get recipe instruction from API
-							String strInstruction = jsonMealIndex.getString("strInstruction");
+							String strInstruction = jsonMealIndex.getString("strInstructions");
 
 							// ACCESS API - Get recipe tag from API
 							String strTags = jsonMealIndex.getString("strTags");

@@ -82,7 +82,7 @@ public class fragment2 extends Fragment {
 									break;
 
 								// LIST - Add retrieved API data to list
-								listIngredient.add(new Ingredient(idMeal, strIngredient, strMeasure, "https://cdn-icons-png.flaticon.com/128/562/562678.png"));
+								listIngredient.add(new Ingredient(idMeal, strIngredient, strMeasure, "https://www.themealdb.com/images/ingredients/" + strIngredient +"-Small.png"));
 								// LOG
 								Log.d("recipeId", idMeal.toString());
 								Log.d("recipeName", strIngredient);
