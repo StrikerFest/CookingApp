@@ -11,9 +11,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.cookingapp.MainActivity;
 import com.example.cookingapp.R;
+import com.example.cookingapp.RecipeDetailActivity;
 import com.example.cookingapp.model.Ingredient;
 import com.example.cookingapp.model.Recipe;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -84,19 +87,22 @@ public class IngredientAdapter extends BaseAdapter {
 		StrictMode.setThreadPolicy(policy);
 
 		// Download and set image
-		URL newURL = null;
-		try {
-			newURL = new URL(listIngredient.get(position).getImage());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		Bitmap mIcon_val = null;
-		try {
-			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		ivIngredientImage.setImageBitmap(mIcon_val);
+//		URL newURL = null;
+//		try {
+//			newURL = new URL(listIngredient.get(position).getImage());
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
+//		Bitmap mIcon_val = null;
+//		try {
+//			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		ivIngredientImage.setImageBitmap(mIcon_val);
+		Picasso.with(((RecipeDetailActivity) context))
+				.load(listIngredient.get(position).getImage())
+				.into(ivIngredientImage);
 
 		// Set data
 		tvIngredientName.setText(listIngredient.get(position).getName());

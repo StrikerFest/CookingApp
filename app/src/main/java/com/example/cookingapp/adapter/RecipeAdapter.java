@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.cookingapp.R;
 import com.example.cookingapp.model.Recipe;
+import com.example.cookingapp.thread.RecipeImageLoadThread;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -99,8 +100,11 @@ public class RecipeAdapter extends BaseAdapter {
 //			e.printStackTrace();
 //		}
 //		ivFoodImg.setImageBitmap(mIcon_val);
+//		ivFoodImg.setImageResource(R.drawable.ic_baseline_fastfood_24);
 
-		ivFoodImg.setImageResource(R.drawable.ic_baseline_fastfood_24);
+		Runnable RecipeImageLoadThread = new RecipeImageLoadThread(listRecipe,ivFoodImg,position,context);
+		new Thread(RecipeImageLoadThread).start();
+
 		// Set data
 		tvFoodName.setText(listRecipe.get(position).getName());
 		tvTag.setText(listRecipe.get(position).getTag());
