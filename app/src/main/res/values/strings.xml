@@ -6,4 +6,6 @@
     <string name="recipe_ingredient">Recipe ingredient</string>
     <string name="recipe_name">Recipe name</string>
     <string name="recipe_tag">Recipe tag</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -17,7 +17,7 @@ public class Recipe implements Serializable {
 		this.tag = tag;
 	}
 	// Full with id
-	public Recipe(long id, String name, String image,String instruction, String tag) {
+	public Recipe(long id, String name, String image, String instruction, String tag) {
 		this.id = id;
 		this.name = name;
 		this.image = image;

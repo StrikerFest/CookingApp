@@ -86,20 +86,21 @@ public class RecipeAdapter extends BaseAdapter {
 		StrictMode.setThreadPolicy(policy);
 
 		// Download and set image from API
-		URL newURL = null;
-		try {
-			newURL = new URL(listRecipe.get(position).getImage());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		Bitmap mIcon_val = null;
-		try {
-			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		ivFoodImg.setImageBitmap(mIcon_val);
+//		URL newURL = null;
+//		try {
+//			newURL = new URL(listRecipe.get(position).getImage());
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
+//		Bitmap mIcon_val = null;
+//		try {
+//			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		ivFoodImg.setImageBitmap(mIcon_val);
 
+		ivFoodImg.setImageResource(R.drawable.ic_baseline_fastfood_24);
 		// Set data
 		tvFoodName.setText(listRecipe.get(position).getName());
 		tvTag.setText(listRecipe.get(position).getTag());

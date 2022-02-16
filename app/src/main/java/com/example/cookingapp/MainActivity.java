@@ -53,17 +53,8 @@ public class MainActivity extends AppCompatActivity {
 	private GridLayout glMenuBtn;
 	private ListView lvRecipeList;
 	private List<Recipe> listRecipe;
-	private RecipeDialog recipeDialog;
-	private FloatingActionButton fabAdd;
+
 	private ArrayList<Recipe> tempList;
-
-	private AlertDialog alertDialog;
-	private AlertDialog.Builder builder;
-
-
-	// DBHelper and DAO
-	private DBHelper dbHelper;
-	private DAO<Recipe> recipeDAO;
 
 	// Initial UI - get view
 	private void initUI() {
@@ -91,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
 		// ListView
 		lvRecipeList = findViewById(R.id.lvRecipeList);
 
-		// Floating Action Button
-		fabAdd = findViewById(R.id.fabAdd);
 
 
 	}
@@ -226,10 +215,6 @@ public class MainActivity extends AppCompatActivity {
 		// INIT_UI ================================================================================
 		initUI();
 
-		// ======================================================================
-		// DATABASE =============================================================
-		dbHelper = new DBHelper(this);
-		recipeDAO = new RecipeDAO(dbHelper);
 
 		// DATABASE - Get all record
 		listRecipe = new ArrayList<>();
@@ -354,33 +339,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-		// =========================================================
-		// DIALOG ==================================================
 
-		// DIALOG - Add recipe
-		recipeDialog = new RecipeDialog(this) {
-			@Override
-			protected void passData(String name, String ingredient, String tag) {
-				Recipe item = new Recipe(name, ingredient, tag);
-				long id = recipeDAO.create(item);
-				item.setId(id);
 
-				listRecipe.add(item);
-				recipeAdapter.notifyDataSetChanged();
-			}
-		};
-
-		// =========================================================
-		// FLOAT ACTION BUTTON =====================================
-
-		// FLOAT ACTION BUTTON - Open add dialog
-		fabAdd.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				recipeDialog.show();
-				Toast.makeText(getApplicationContext(), "Add Dialog loading...", Toast.LENGTH_SHORT).show();
-			}
-		});
 
 	}
 }

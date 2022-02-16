@@ -4,39 +4,39 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.cookingapp.model.Recipe;
+import com.example.cookingapp.model.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeDAO implements DAO<Recipe> {
+public class IngredientDAO implements DAO<Ingredient> {
 	private DBHelper dbHelper;
 
-	public RecipeDAO(DBHelper dbHelper) {
+	public IngredientDAO(DBHelper dbHelper) {
 		this.dbHelper = dbHelper;
 	}
 
 	@Override
-	public List<Recipe> all() {
+	public List<Ingredient> all() {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		String sql = "SELECT * FROM recipe";
+		String sql = "SELECT * FROM Ingredient";
 		Cursor cursor = db.rawQuery(sql, null);
 
 		//
-		List<Recipe> list = new ArrayList<>();
+		List<Ingredient> list = new ArrayList<>();
 		if (cursor.moveToFirst()) {
 			int idIndex = cursor.getColumnIndex("id");
 			int nameIndex = cursor.getColumnIndex("name");
+			int amountIndex = cursor.getColumnIndex("amount");
 			int imageIndex = cursor.getColumnIndex("image");
-			int tagIndex = cursor.getColumnIndex("tag");
 
 			do {
-				Recipe item = new Recipe();
+				Ingredient item = new Ingredient();
 //
 				item.setId(cursor.getLong(idIndex));
 				item.setName(cursor.getString(nameIndex));
+				item.setAmount(cursor.getString(amountIndex));
 				item.setImage(cursor.getString(imageIndex));
-				item.setTag(cursor.getString(tagIndex));
 
 				list.add(item);
 			}
@@ -48,27 +48,27 @@ public class RecipeDAO implements DAO<Recipe> {
 	}
 
 	@Override
-	public Recipe get(long id) {
+	public Ingredient get(long id) {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
-		String sql = "SELECT * FROM recipe WHERE id = " + id;
+		String sql = "SELECT * FROM ingredient WHERE id = " + id;
 		Cursor cursor = db.rawQuery(sql, null);
-		Recipe item = null;
+		Ingredient item = null;
 		if (cursor.moveToFirst()) {
 			int idIndex = cursor.getColumnIndex("id");
 			int nameIndex = cursor.getColumnIndex("name");
-			int ingredientIndex = cursor.getColumnIndex("ingredient");
-			int tagIndex = cursor.getColumnIndex("tag");
+			int amountIndex = cursor.getColumnIndex("amount");
+			int imageIndex = cursor.getColumnIndex("image");
 
-			item = new Recipe();
+			item = new Ingredient();
 			item.setId(cursor.getLong(idIndex));
 			item.setName(cursor.getString(nameIndex));
-			item.setImage(cursor.getString(ingredientIndex));
-			item.setTag(cursor.getString(tagIndex));
+			item.setImage(cursor.getString(imageIndex));
+			item.setAmount(cursor.getString(amountIndex));
 
 			item.setId(cursor.getLong(idIndex));
 			item.setName(cursor.getString(nameIndex));
-			item.setImage(cursor.getString(ingredientIndex));
-			item.setTag(cursor.getString(tagIndex));
+			item.setImage(cursor.getString(imageIndex));
+			item.setAmount(cursor.getString(amountIndex));
 
 		}
 		cursor.close();
@@ -77,37 +77,37 @@ public class RecipeDAO implements DAO<Recipe> {
 	}
 
 	@Override
-	public long create(Recipe item) {
+	public long create(Ingredient item) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 
 		ContentValues contentValues = new ContentValues();
 		contentValues.put("name", item.getName());
 		contentValues.put("image", item.getImage());
-		contentValues.put("tag", item.getTag());
+		contentValues.put("amount", item.getAmount());
 
-		// Get id of new recipe
-		long id = db.insert("recipe", null, contentValues);
+		// Get id of new Ingredient
+		long id = db.insert("ingredient", null, contentValues);
 
 		return id;
 	}
 
 	@Override
-	public int update(Recipe item) {
+	public int update(Ingredient item) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues contentValues = new ContentValues();
 		contentValues.put("name", item.getName());
 		contentValues.put("ingredient", item.getImage());
-		contentValues.put("tag", item.getTag());
+		contentValues.put("amount", item.getAmount());
 
 		//
-		int rs = db.update("recipe", contentValues, "id = " + item.getId(), null);
+		int rs = db.update("ingredient", contentValues, "id = " + item.getId(), null);
 		return rs;
 	}
 
 	@Override
 	public int delete(long id) {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
-		int rs = db.delete("recipe", "id = " + id, null);
+		int rs = db.delete("ingredient", "id = " + id, null);
 		return 0;
 	}
 }
