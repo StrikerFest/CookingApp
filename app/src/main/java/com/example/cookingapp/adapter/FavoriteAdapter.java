@@ -1,7 +1,11 @@
 package com.example.cookingapp.adapter;
 
+import static java.lang.String.valueOf;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.example.cookingapp.CookbookActivity;
 import com.example.cookingapp.MainActivity;
@@ -35,6 +41,9 @@ public class FavoriteAdapter extends BaseAdapter {
 
 	private DBHelper dbHelper;
 	private DAO<Recipe> favoriteDAO;
+
+	private AlertDialog alertDialog;
+	private AlertDialog.Builder builder;
 
 	// Adapter constructor
 	public FavoriteAdapter(Context context, List<Recipe> listRecipe) {
@@ -107,9 +116,98 @@ public class FavoriteAdapter extends BaseAdapter {
 //			}
 //		});
 
-//		// Thread
-//		Runnable RecipeImageLoadThread = new RecipeImageLoadThread(listRecipe, ivFoodImg, position, context);
-//		new Thread(RecipeImageLoadThread).start();
+		// Get all item from fav food list
+		listTemp = favoriteDAO.all();
+		notifyDataSetChanged();
+
+		// If the item at the current position don't match any item in the fav food list
+		for (Recipe r : listTemp){
+			if (listRecipe.get(position).getId() != r.getId()){
+				ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+				notifyDataSetChanged();
+			}
+		}
+
+		// If the item at the current position  match any item in the fav food list
+		for (Recipe r : listTemp){
+			if (listRecipe.get(position).getId() == r.getId()){
+				ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
+				notifyDataSetChanged();
+				break;
+			}
+		}
+		notifyDataSetChanged();
+
+		ivFavorite.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				boolean checkClick = false;
+				for (Recipe r : listTemp){
+					if (listRecipe.get(position).getId() != r.getId()){
+						Log.d("id of r1", String.valueOf(r.getId()));
+						Log.d("id of favrep1",valueOf(listRecipe.get(position).getId()));
+						checkClick = false;
+						notifyDataSetChanged();
+					}
+					else if(listRecipe.get(position).getId() == r.getId()) {
+						Log.d("id of r2", String.valueOf(r.getId()));
+						Log.d("id of favrep2",valueOf(listRecipe.get(position).getId()));
+						checkClick = true;
+						break;
+					}
+					else{
+						Toast.makeText(context.getApplicationContext(), "We got a problem", Toast.LENGTH_SHORT).show();
+					}
+					notifyDataSetChanged();
+
+				}
+				if (checkClick){
+					builder = new AlertDialog.Builder(context).
+							setTitle("Remove current recipe?").
+							setMessage("Do you want to remove this recipe off the favorite list").
+							setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialogInterface, int i) {
+									ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+
+									Recipe unFavRecipe = listRecipe.get(position);
+									Toast.makeText(context.getApplicationContext(), "Not fav: " + unFavRecipe.getName(), Toast.LENGTH_SHORT).show();
+
+									favoriteDAO.delete(unFavRecipe.getId());
+									notifyDataSetChanged();
+
+								}
+
+							}).setNegativeButton("No", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialogInterface, int i) {
+							Toast.makeText(context,"Cancel deletion",Toast.LENGTH_SHORT).show();
+						}
+					});
+					alertDialog = builder.create();
+					alertDialog.show();
+
+
+				}
+				else if (!checkClick) {
+
+					ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
+					Recipe favRecipe = listRecipe.get(position);
+
+					Toast.makeText(context.getApplicationContext(), "Fav: " + favRecipe.getName(), Toast.LENGTH_SHORT).show();
+
+					long id = favoriteDAO.create(favRecipe);
+				}
+
+				notifyDataSetChanged();
+			}
+		});
+		listRecipe.clear();
+		listRecipe = favoriteDAO.all();
+
+
+		// Load image
 		Picasso.with(((CookbookActivity) context))
 				.load(listRecipe.get(position).getImage())
 				.into(ivFoodImg);
