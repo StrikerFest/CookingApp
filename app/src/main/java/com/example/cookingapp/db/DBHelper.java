@@ -38,6 +38,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		db.execSQL(sql);
 
+		sql = "CREATE TABLE favorite(" +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"name TEXT NOT NULL," +
+				"image TEXT NOT NULL," +
+				"tag TEXT NOT NULL" +
+				") ";
+
+		db.execSQL(sql);
 
 
 	}

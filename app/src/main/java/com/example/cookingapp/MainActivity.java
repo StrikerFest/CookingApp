@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 	private TextView tvSearchMain;
 	private LinearLayout llSearchMain;
 	private SearchView svSearchMain;
-	private Button btnBreakfast, btnStarter, btnSide, btnVegetarian, btnDessert, btnSeafood;
+	private Button btnBreakfast, btnStarter, btnSide, btnVegetarian, btnDessert, btnSeafood, btnCookbook;
 	private GridLayout glMenuBtn;
 	private ListView lvRecipeList;
 	private List<Recipe> listRecipe;
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 		btnVegetarian = findViewById(R.id.btnVegetarian);
 		btnDessert = findViewById(R.id.btnDessert);
 		btnSeafood = findViewById(R.id.btnSeafood);
+		btnCookbook = findViewById(R.id.btnCookbook);
 
 		// GridLayout
 		glMenuBtn = findViewById(R.id.glMenuBtn);
@@ -215,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
 		// INIT_UI ================================================================================
 		initUI();
 
-
 		// DATABASE - Get all record
 		listRecipe = new ArrayList<>();
 //		listRecipe = recipeDAO.all();
@@ -260,6 +260,16 @@ public class MainActivity extends AppCompatActivity {
 		});
 
 		// BUTTON ===============================================================
+
+		// BUTTON cookbook
+		btnCookbook.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getApplicationContext(), "Loading cookbook", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(MainActivity.this,CookbookActivity.class);
+				startActivity(intent);
+			}
+		});
 
 		// BUTTON breakfast
 		btnBreakfast.setOnClickListener(new View.OnClickListener() {

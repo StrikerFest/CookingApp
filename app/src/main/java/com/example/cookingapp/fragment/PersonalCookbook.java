@@ -62,29 +62,29 @@ public class PersonalCookbook extends Fragment {
 		// DIALOG ==================================================
 
 		// DIALOG - Add recipe
-		recipeDialog = new RecipeDialog(getActivity()) {
-			@Override
-			protected void passData(String name, String ingredient, String tag) {
-				Recipe item = new Recipe(name, ingredient, tag);
-				long id = recipeDAO.create(item);
-				item.setId(id);
-
-				listRecipe.add(item);
-				recipeAdapter.notifyDataSetChanged();
-			}
-		};
+//		recipeDialog = new RecipeDialog(getActivity()) {
+//			@Override
+//			protected void passData(String name, String ingredient, String tag) {
+//				Recipe item = new Recipe(name, ingredient, tag);
+//				long id = recipeDAO.create(item);
+//				item.setId(id);
+//
+//				listRecipe.add(item);
+//				recipeAdapter.notifyDataSetChanged();
+//			}
+//		};
 
 		// =========================================================
 		// FLOAT ACTION BUTTON =====================================
 
 		// FLOAT ACTION BUTTON - Open add dialog
-		fabAdd.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				recipeDialog.show();
-				Toast.makeText(getActivity(), "Add Dialog loading...", Toast.LENGTH_SHORT).show();
-			}
-		});
+//		fabAdd.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				recipeDialog.show();
+//				Toast.makeText(getActivity(), "Add Dialog loading...", Toast.LENGTH_SHORT).show();
+//			}
+//		});
 
 
 		return RootView;
