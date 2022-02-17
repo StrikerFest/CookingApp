@@ -47,6 +47,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		db.execSQL(sql);
 
+		sql = "CREATE TABLE personalRecipe(" +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"name TEXT NOT NULL," +
+				"ingredient TEXT NOT NULL," +
+				"instruction TEXT NOT NULL," +
+				"tag TEXT NOT NULL" +
+				") ";
+
+		db.execSQL(sql);
 
 	}
 

@@ -16,7 +16,7 @@ public abstract class RecipeDialog extends Dialog {
 
 	// Create variable
 	private Button btnSave, btnExit;
-	private EditText editName, editIngredient, editTag;
+	private EditText editName, editIngredient,editInstruction, editTag;
 	private Context context;
 
 	// Create constructor with context that can't be null
@@ -32,6 +32,7 @@ public abstract class RecipeDialog extends Dialog {
 		super.show();
 		editName.setText("");
 		editIngredient.setText("");
+		editInstruction.setText("");
 		editTag.setText("");
 
 	}
@@ -45,6 +46,7 @@ public abstract class RecipeDialog extends Dialog {
 		// Find view by id
 		editName = findViewById(R.id.editRecipeName);
 		editIngredient = findViewById(R.id.editRecipeIngredient);
+		editInstruction = findViewById(R.id.editRecipeInstruction);
 		editTag = findViewById(R.id.editRecipeTag);
 		btnExit = findViewById(R.id.btnExit);
 		btnSave = findViewById(R.id.btnSave);
@@ -70,16 +72,27 @@ public abstract class RecipeDialog extends Dialog {
 					editIngredient.setError("Enter ingredient");
 				}
 
+				// Get data from editInstruction
+				String instruction = editInstruction.getText().toString();
+
+				// If it empty
+				if (instruction.isEmpty()) {
+					editInstruction.setError("Enter instruction");
+				}
+
 				// Get data from editTag
 				String tag = editTag.getText().toString();
 
-				// pass the data
-				passData(name, ingredient,tag);
 
 				// If it empty
 				if (tag.isEmpty()) {
 					editTag.setError("Enter tag");
 				}
+
+				// pass the data
+				passData(name, ingredient,instruction,tag);
+
+				dismiss();
 			}
 		});
 
@@ -92,6 +105,6 @@ public abstract class RecipeDialog extends Dialog {
 			}
 		});
 	}
-	protected abstract void passData(String name, String ingredient,String tag);
+	protected abstract void passData(String name, String ingredient,String instruction , String tag);
 
 }

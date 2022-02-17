@@ -51,7 +51,7 @@ public class CookbookActivity extends AppCompatActivity {
 		tabLayout.setupWithViewPager(viewPager);
 		VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 		vpAdapter.addFragment(new PersonalCookbook(),"Cookbook");
-		vpAdapter.addFragment(new FavoriteDish(),"FavoriteDish");
+		vpAdapter.addFragment(new FavoriteDish(),"❤ Favorite ❤");
 
 		viewPager.setAdapter(vpAdapter);
 	}

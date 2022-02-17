@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CookingApp">
         <activity
+            android:name=".PersonalRecipeDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".CookbookActivity"
             android:exported="false" />
         <activity
