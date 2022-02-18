@@ -1,6 +1,7 @@
 package com.example.cookingapp.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -86,6 +87,42 @@ public class PersonalCookbook extends Fragment {
 			}
 		});
 
+		lvPersonalRecipe.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			// long click delete item
+			@Override
+			public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
+				//
+
+				builder = new AlertDialog.Builder(getActivity()).
+						setTitle("Delete?").
+						setMessage("Do you want to delete this recipe").
+						setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i) {
+								PersonalRecipe item = listPersonalRecipe.get(pos);
+								if(personalRecipeDAO.delete(item.getId()) == i) {
+
+									int position = lvPersonalRecipe.getPositionForView(view);
+
+								}
+								personalRecipeAdapter.remove(pos);
+								personalRecipeAdapter.notifyDataSetChanged();
+							}
+						}).setNegativeButton("No", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						Toast.makeText(getActivity(),"Cancel deletion",Toast.LENGTH_SHORT).show();personalRecipeAdapter.notifyDataSetChanged();
+					}
+				});
+				alertDialog = builder.create();
+				alertDialog.show();
+				personalRecipeAdapter.notifyDataSetChanged();
+
+				Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+				return true;
+			}
+		});
+
 		// =========================================================
 		// DIALOG ==================================================
 
@@ -117,8 +154,6 @@ public class PersonalCookbook extends Fragment {
 
 			}
 		});
-
-
 		return RootView;
 
 	}

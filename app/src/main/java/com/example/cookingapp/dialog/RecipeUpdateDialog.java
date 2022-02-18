@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 
 import com.example.cookingapp.R;
 
-public abstract class RecipeDialog extends Dialog {
+public abstract class RecipeUpdateDialog extends Dialog {
 
 	// Create variable
 	private Button btnSave, btnExit;
@@ -20,7 +20,7 @@ public abstract class RecipeDialog extends Dialog {
 	private Context context;
 
 	// Create constructor with context that can't be null
-	public RecipeDialog(@NonNull Context context) {
+	public RecipeUpdateDialog(@NonNull Context context) {
 		super(context);
 		this.context = context;
 
