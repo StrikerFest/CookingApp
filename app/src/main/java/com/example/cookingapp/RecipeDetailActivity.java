@@ -194,7 +194,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements Serializa
 		VPAdapter vpAdapter = new VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 		vpAdapter.addFragment(new fragment1(),"Intro");
 		vpAdapter.addFragment(new fragment2(),"Recipe");
-		vpAdapter.addFragment(new fragment3(),"Instruction");
+		vpAdapter.addFragment(new fragment3(),"Instruct");
 
 		viewPager.setAdapter(vpAdapter);
 

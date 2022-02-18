@@ -21,6 +21,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editRecipeName"
         android:hint="@string/recipe_ingredient"/>
+    <EditText
+        android:id="@+id/editRecipeInstruction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editRecipeIngredient"
+        android:hint="Recipe instruction"/>
 
     <EditText
         android:id="@+id/editRecipeTag"
@@ -28,7 +36,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editRecipeIngredient"
+        app:layout_constraintTop_toBottomOf="@id/editRecipeInstruction"
         android:hint="@string/recipe_tag"/>
 
     <Button

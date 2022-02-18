@@ -1,9 +1,8 @@
 package com.example.cookingapp.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-public class Recipe implements Serializable {
+public class Favorite implements Serializable {
 	private long id;
 	private String name;
 	private String image;
@@ -12,13 +11,13 @@ public class Recipe implements Serializable {
 	private boolean favorite;
 
 	// Full without id
-	public Recipe(String name, String image, String tag) {
+	public Favorite(String name, String image, String tag) {
 		this.name = name;
 		this.image = image;
 		this.tag = tag;
 	}
 	// Full with id
-	public Recipe(long id, String name, String image, String instruction, String tag) {
+	public Favorite(long id, String name, String image, String instruction, String tag) {
 		this.id = id;
 		this.name = name;
 		this.image = image;
@@ -27,13 +26,13 @@ public class Recipe implements Serializable {
 	}
 
 	// Less without id
-	public Recipe(String name, String tag) {
+	public Favorite(String name, String tag) {
 		this.name = name;
 		this.tag = tag;
 	}
 
 	// Less with id
-	public Recipe(long id, String name,  String image,String tag) {
+	public Favorite(long id, String name, String image, String tag) {
 		this.id = id;
 		this.name = name;
 		this.image = image;
@@ -41,7 +40,7 @@ public class Recipe implements Serializable {
 	}
 
 	// Empty
-	public Recipe() {
+	public Favorite() {
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.example.cookingapp.fragment;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.cookingapp.MainActivity;
 import com.example.cookingapp.R;
 import com.example.cookingapp.model.Ingredient;
 import com.example.cookingapp.model.Recipe;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -31,6 +34,7 @@ public class fragment1 extends Fragment {
 	private Recipe recipe;
 	private ImageView ivRecipeImage;
 	private ListView lvIngredientList;
+	private Context context;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,24 +49,27 @@ public class fragment1 extends Fragment {
 		tvRecipeName.setText(recipe.getName());
 
 		// IMAGE VIEW - set imageView to API's url
-		URL newURL = null;
-		// Create new URL which take the api's image url
-		try {
-			newURL = new URL(recipe.getImage());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+//		URL newURL = null;
+//		// Create new URL which take the api's image url
+//		try {
+//			newURL = new URL(recipe.getImage());
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		// Download image from URL and get the value
+//		Bitmap mIcon_val = null;
+//		try {
+//			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
-		// Download image from URL and get the value
-		Bitmap mIcon_val = null;
-		try {
-			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		// Set image view value
-		ivRecipeImage.setImageBitmap(mIcon_val);
+//		// Set image view value
+//		ivRecipeImage.setImageBitmap(mIcon_val);
+		Picasso.with(((MainActivity) context))
+				.load(recipe.getImage())
+				.into(ivRecipeImage);
 		return RootView;
 	}
 }

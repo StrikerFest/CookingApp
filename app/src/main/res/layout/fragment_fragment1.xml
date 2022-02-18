@@ -32,29 +32,6 @@
             android:layout_marginTop="20dp"
             android:textSize="25sp"
              />
-        <Button
-            android:id="@+id/btnRecipeTitle"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Recipe"
-            android:layout_marginLeft="36dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-
-            app:layout_constraintTop_toBottomOf="@id/tvRecipeName"
-            android:layout_marginTop="20dp"
-            android:textSize="22dp"
-            />
-        <Button
-            android:id="@+id/btnInstructionTitle"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Instruction"
-            app:layout_constraintTop_toBottomOf="@id/tvRecipeName"
-            android:layout_marginRight="36dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="20dp"
-            android:textSize="15dp"
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

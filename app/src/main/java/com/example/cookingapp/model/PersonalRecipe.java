@@ -1,47 +1,51 @@
 package com.example.cookingapp.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-public class Recipe implements Serializable {
+public class PersonalRecipe implements Serializable {
 	private long id;
 	private String name;
-	private String image;
+	private String ingredient;
 	private String instruction;
 	private String tag;
-	private boolean favorite;
 
 	// Full without id
-	public Recipe(String name, String image, String tag) {
+	public PersonalRecipe(String name, String ingredient, String tag) {
 		this.name = name;
-		this.image = image;
+		this.ingredient = ingredient;
 		this.tag = tag;
 	}
 	// Full with id
-	public Recipe(long id, String name, String image, String instruction, String tag) {
+	public PersonalRecipe(long id, String name, String ingredient, String instruction, String tag) {
 		this.id = id;
 		this.name = name;
-		this.image = image;
+		this.ingredient = ingredient;
 		this.instruction = instruction;
 		this.tag = tag;
 	}
 
+	public PersonalRecipe( String name, String ingredient, String instruction, String tag) {
+		this.name = name;
+		this.ingredient = ingredient;
+		this.instruction = instruction;
+		this.tag = tag;
+	}
 	// Less without id
-	public Recipe(String name, String tag) {
+	public PersonalRecipe(String name, String tag) {
 		this.name = name;
 		this.tag = tag;
 	}
 
 	// Less with id
-	public Recipe(long id, String name,  String image,String tag) {
+	public PersonalRecipe(long id, String name, String ingredient, String tag) {
 		this.id = id;
 		this.name = name;
-		this.image = image;
+		this.ingredient = ingredient;
 		this.tag = tag;
 	}
 
 	// Empty
-	public Recipe() {
+	public PersonalRecipe() {
 	}
 
 	@Override
@@ -49,18 +53,11 @@ public class Recipe implements Serializable {
 		return "Recipe{" +
 				"id=" + id +
 				", name='" + name + '\'' +
-				", image=" + image +
+				", ingredient=" + ingredient +
 				", tag='" + tag + '\'' +
 				'}';
 	}
 
-	public boolean isFavorite() {
-		return favorite;
-	}
-
-	public void setFavorite(boolean favorite) {
-		this.favorite = favorite;
-	}
 
 	public String getInstruction() {
 		return instruction;
@@ -86,12 +83,12 @@ public class Recipe implements Serializable {
 		this.name = name;
 	}
 
-	public String getImage() {
-		return image;
+	public String getIngredient() {
+		return ingredient;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setIngredient(String ingredient) {
+		this.ingredient = ingredient;
 	}
 
 	public String getTag() {

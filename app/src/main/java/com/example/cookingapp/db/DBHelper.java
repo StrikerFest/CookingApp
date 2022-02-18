@@ -16,13 +16,45 @@ public class DBHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create table in Database
-		// Create ingredient table
+
 		String sql = "CREATE TABLE recipe(" +
 				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
 				"name TEXT NOT NULL," +
-				"ingredient TEXT NOT NULL," +
+				"image TEXT NOT NULL," +
 				"tag TEXT NOT NULL" +
 				") ";
+
+		db.execSQL(sql);
+
+		// Create ingredient table
+		sql = " CREATE TABLE ingredient(" +
+				"idIngredient INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"idRecipe INTEGER NOT NULL," +
+				"ingredientName TEXT NOT NULL," +
+				"ingredientAmount TEXT NOT NULL," +
+				"FOREIGN KEY(idRecipe)" +
+				"REFERENCES recipe(id)" +
+				")";
+
+		db.execSQL(sql);
+
+		sql = "CREATE TABLE favorite(" +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"name TEXT NOT NULL," +
+				"image TEXT NOT NULL," +
+				"tag TEXT NOT NULL" +
+				") ";
+
+		db.execSQL(sql);
+
+		sql = "CREATE TABLE personalRecipe(" +
+				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
+				"name TEXT NOT NULL," +
+				"ingredient TEXT NOT NULL," +
+				"instruction TEXT NOT NULL," +
+				"tag TEXT NOT NULL" +
+				") ";
+
 		db.execSQL(sql);
 
 	}

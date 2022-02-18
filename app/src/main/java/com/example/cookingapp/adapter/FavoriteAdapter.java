@@ -3,41 +3,33 @@ package com.example.cookingapp.adapter;
 import static java.lang.String.valueOf;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.DialogInterface;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
+import com.example.cookingapp.CookbookActivity;
 import com.example.cookingapp.MainActivity;
-import com.example.cookingapp.PersonalRecipeDetailActivity;
 import com.example.cookingapp.R;
-import com.example.cookingapp.RecipeDetailActivity;
 import com.example.cookingapp.db.DAO;
 import com.example.cookingapp.db.DBHelper;
 import com.example.cookingapp.db.FavoriteDAO;
-import com.example.cookingapp.db.RecipeDAO;
-import com.example.cookingapp.model.PersonalRecipe;
 import com.example.cookingapp.model.Recipe;
 import com.example.cookingapp.thread.RecipeImageLoadThread;
+import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-public class RecipeAdapter extends BaseAdapter {
+public class FavoriteAdapter extends BaseAdapter {
 
 	// Variable
 	private Context context;
@@ -50,10 +42,11 @@ public class RecipeAdapter extends BaseAdapter {
 	private DBHelper dbHelper;
 	private DAO<Recipe> favoriteDAO;
 
-	private PopupMenu popupMenu;
+	private AlertDialog alertDialog;
+	private AlertDialog.Builder builder;
 
 	// Adapter constructor
-	public RecipeAdapter(Context context, List<Recipe> listRecipe) {
+	public FavoriteAdapter(Context context, List<Recipe> listRecipe) {
 		this.context = context;
 		this.listRecipe = listRecipe;
 		this.arraylist = new ArrayList<Recipe>();
@@ -88,7 +81,7 @@ public class RecipeAdapter extends BaseAdapter {
 		TextView tvFoodName, tvFoodDifficulty, tvFoodRating, tvIngredient, tvTag;
 		ImageView ivFoodImg, ivMenu, ivFavorite;
 
-		dbHelper = new DBHelper((MainActivity) context);
+		dbHelper = new DBHelper( context);
 		favoriteDAO = new FavoriteDAO(dbHelper);
 
 		// Find item by id
@@ -113,21 +106,15 @@ public class RecipeAdapter extends BaseAdapter {
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
-		// Download and set image from API
-//		URL newURL = null;
-//		try {
-//			newURL = new URL(listRecipe.get(position).getImage());
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//		Bitmap mIcon_val = null;
-//		try {
-//			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		ivFoodImg.setImageBitmap(mIcon_val);
-//		ivFoodImg.setImageResource(R.drawable.ic_baseline_fastfood_24);
+//		ivFavorite.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Toast.makeText(context.getApplicationContext(), "NANNA", Toast.LENGTH_SHORT).show();
+//				ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
+////				idTemp = listRecipe.get(position).getId();
+//				favoriteDAO.create(listRecipe.get(position));
+//			}
+//		});
 
 		// Get all item from fav food list
 		listTemp = favoriteDAO.all();
@@ -151,12 +138,10 @@ public class RecipeAdapter extends BaseAdapter {
 		}
 		notifyDataSetChanged();
 
-
 		ivFavorite.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
-//				idTemp = listRecipe.get(position).getId();
 				boolean checkClick = false;
 				for (Recipe r : listTemp){
 					if (listRecipe.get(position).getId() != r.getId()){
@@ -178,82 +163,54 @@ public class RecipeAdapter extends BaseAdapter {
 
 				}
 				if (checkClick){
-					ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-					notifyDataSetChanged();
+					builder = new AlertDialog.Builder(context).
+							setTitle("Remove current recipe?").
+							setMessage("Do you want to remove this recipe off the favorite list").
+							setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialogInterface, int i) {
+									ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
 
-					Recipe unFavRecipe = listRecipe.get(position);
-					Toast.makeText(context.getApplicationContext(), "Not fav: " + unFavRecipe.getName(), Toast.LENGTH_SHORT).show();
+									Recipe unFavRecipe = listRecipe.get(position);
+									Toast.makeText(context.getApplicationContext(), "Not fav: " + unFavRecipe.getName(), Toast.LENGTH_SHORT).show();
 
-					favoriteDAO.delete(unFavRecipe.getId());
+									favoriteDAO.delete(unFavRecipe.getId());
+									notifyDataSetChanged();
+
+								}
+
+							}).setNegativeButton("No", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialogInterface, int i) {
+							Toast.makeText(context,"Cancel deletion",Toast.LENGTH_SHORT).show();
+						}
+					});
+					alertDialog = builder.create();
+					alertDialog.show();
+
+
 				}
 				else if (!checkClick) {
 
 					ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
 					Recipe favRecipe = listRecipe.get(position);
-					notifyDataSetChanged();
 
 					Toast.makeText(context.getApplicationContext(), "Fav: " + favRecipe.getName(), Toast.LENGTH_SHORT).show();
 
 					long id = favoriteDAO.create(favRecipe);
 				}
-//				for (Recipe r : listTemp){
-//					if (listRecipe.get(position).getId() == r.getId()){
-//						ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-//						notifyDataSetChanged();
-//						break;
-//					}
-//				}
-
-
-
-//				Log.d("listRecipe.get(position)", String.valueOf(listRecipe.get(position)));
-
-//				favRecipe.setId(listRecipe.get(position).getId());
-//
-//
 
 				notifyDataSetChanged();
 			}
 		});
+		listRecipe.clear();
+		listRecipe = favoriteDAO.all();
 
-		// Thread
-		Runnable RecipeImageLoadThread = new RecipeImageLoadThread(listRecipe, ivFoodImg, position, context);
-		new Thread(RecipeImageLoadThread).start();
 
-		ivMenu.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(context, listRecipe.get(position).getName(), Toast.LENGTH_SHORT).show();
-
-				// Create popup menu
-				popupMenu = new PopupMenu(context.getApplicationContext(), ivMenu);
-				popupMenu.getMenuInflater().inflate(R.menu.popup_menu_main,popupMenu.getMenu());
-
-				// pop up extra menu
-				popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-					@Override
-					public boolean onMenuItemClick(MenuItem menuItem) {
-						switch (menuItem.getItemId()){
-							case R.id.popup_menu_action1:
-
-								Log.d("listRecipe.get(position)", String.valueOf(listRecipe.get(position)));
-								notifyDataSetChanged();
-
-								Toast.makeText(context, "List view item clicked", Toast.LENGTH_SHORT).show();
-								Intent intent = new Intent(context, RecipeDetailActivity.class);
-								intent.putExtra("recipe", listRecipe.get(position));
-								context.startActivity(intent);
-								break;
-//							case R.id.popup_menu_action2:
-//
-//								break;
-						}
-						return false;
-					}
-				});
-				popupMenu.show();
-			}
-		});
+		// Load image
+		Picasso.with(((CookbookActivity) context))
+				.load(listRecipe.get(position).getImage())
+				.into(ivFoodImg);
 
 		// Set data
 		tvFoodName.setText(listRecipe.get(position).getName());
