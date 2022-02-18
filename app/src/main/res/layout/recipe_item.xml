@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/ivFoodImg"
         android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -15,45 +15,41 @@
 
     <TextView
         android:id="@+id/tvFoodName"
-        android:layout_width="180dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="28dp"
         android:text="Food name"
         android:fontFamily="sans-serif-condensed-medium"
         android:textStyle="italic"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvIngredient"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvTag"
         app:layout_wrapBehaviorInParent="horizontal_only"
         android:textColor="@color/purple_700"
         app:layout_constraintLeft_toRightOf="@id/ivFoodImg"
         app:layout_constraintRight_toLeftOf="@id/ivFavorite"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvIngredient"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        app:layout_wrapBehaviorInParent="horizontal_only"
-        android:layout_marginLeft="28dp"
-        android:text="Flower, baked cookie, money,"
-        android:ellipsize="end"
-        android:singleLine="true"
-        app:layout_constraintBottom_toTopOf="@id/tvTag"
-        app:layout_constraintLeft_toRightOf="@id/ivFoodImg"
-        app:layout_constraintRight_toLeftOf="@id/ivFavorite"
-        app:layout_constraintTop_toBottomOf="@id/tvFoodName" />
+<!--    <TextView-->
+<!--        android:id="@+id/tvIngredient"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="28dp"-->
+<!--        android:text="Flower, baked cookie, money,"-->
+<!--        android:ellipsize="end"-->
+<!--        android:singleLine="true"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/tvTag"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/ivFoodImg"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tvFoodName" />-->
 
     <TextView
         android:id="@+id/tvTag"
-        android:layout_width="180dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="28dp"
         android:text="Partey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/ivFoodImg"
 
         app:layout_constraintRight_toLeftOf="@id/ivFavorite"
-        app:layout_constraintTop_toBottomOf="@id/tvIngredient" />
+        app:layout_constraintTop_toBottomOf="@id/tvFoodName" />
 
     <ImageView
         android:id="@+id/ivMenu"

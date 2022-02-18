@@ -190,7 +190,7 @@ public class PersonalRecipeAdapter extends BaseAdapter {
 
 		// Set data
 		tvFoodName.setText(personalRecipeList.get(position).getName());
-		tvIngredient.setText(personalRecipeList.get(position).getIngredient());
+//		tvIngredient.setText(personalRecipeList.get(position).getIngredient());
 		tvTag.setText(personalRecipeList.get(position).getTag());
 		ivFoodImg.setImageResource(R.drawable.ic_baseline_fastfood_24);
 
