@@ -3,24 +3,30 @@ package com.example.cookingapp.adapter;
 import static java.lang.String.valueOf;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cookingapp.MainActivity;
+import com.example.cookingapp.PersonalRecipeDetailActivity;
 import com.example.cookingapp.R;
+import com.example.cookingapp.RecipeDetailActivity;
 import com.example.cookingapp.db.DAO;
 import com.example.cookingapp.db.DBHelper;
 import com.example.cookingapp.db.FavoriteDAO;
 import com.example.cookingapp.db.RecipeDAO;
+import com.example.cookingapp.model.PersonalRecipe;
 import com.example.cookingapp.model.Recipe;
 import com.example.cookingapp.thread.RecipeImageLoadThread;
 
@@ -43,6 +49,8 @@ public class RecipeAdapter extends BaseAdapter {
 
 	private DBHelper dbHelper;
 	private DAO<Recipe> favoriteDAO;
+
+	private PopupMenu popupMenu;
 
 	// Adapter constructor
 	public RecipeAdapter(Context context, List<Recipe> listRecipe) {
@@ -211,6 +219,41 @@ public class RecipeAdapter extends BaseAdapter {
 		// Thread
 		Runnable RecipeImageLoadThread = new RecipeImageLoadThread(listRecipe, ivFoodImg, position, context);
 		new Thread(RecipeImageLoadThread).start();
+
+		ivMenu.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(context, listRecipe.get(position).getName(), Toast.LENGTH_SHORT).show();
+
+				// Create popup menu
+				popupMenu = new PopupMenu(context.getApplicationContext(), ivMenu);
+				popupMenu.getMenuInflater().inflate(R.menu.popup_menu_main,popupMenu.getMenu());
+
+				// pop up extra menu
+				popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+					@Override
+					public boolean onMenuItemClick(MenuItem menuItem) {
+						switch (menuItem.getItemId()){
+							case R.id.popup_menu_action1:
+
+								Log.d("listRecipe.get(position)", String.valueOf(listRecipe.get(position)));
+								notifyDataSetChanged();
+
+								Toast.makeText(context, "List view item clicked", Toast.LENGTH_SHORT).show();
+								Intent intent = new Intent(context, RecipeDetailActivity.class);
+								intent.putExtra("recipe", listRecipe.get(position));
+								context.startActivity(intent);
+								break;
+//							case R.id.popup_menu_action2:
+//
+//								break;
+						}
+						return false;
+					}
+				});
+				popupMenu.show();
+			}
+		});
 
 		// Set data
 		tvFoodName.setText(listRecipe.get(position).getName());
