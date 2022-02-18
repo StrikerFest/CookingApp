@@ -71,7 +71,6 @@ public abstract class RecipeDialog extends Dialog {
 				if (ingredient.isEmpty()) {
 					editIngredient.setError("Enter ingredient");
 					return;
-
 				}
 
 				// Get data from editInstruction
@@ -81,7 +80,6 @@ public abstract class RecipeDialog extends Dialog {
 				if (instruction.isEmpty()) {
 					editInstruction.setError("Enter instruction");
 					return;
-
 				}
 
 				// Get data from editTag
@@ -92,7 +90,6 @@ public abstract class RecipeDialog extends Dialog {
 				if (tag.isEmpty()) {
 					editTag.setError("Enter tag");
 					return;
-
 				}
 
 				// pass the data

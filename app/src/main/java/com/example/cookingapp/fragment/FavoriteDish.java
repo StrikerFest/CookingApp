@@ -40,12 +40,14 @@ public class FavoriteDish extends Fragment {
 		// Inflate the layout for this fragment
 		View RootView = inflater.inflate(R.layout.fragment_favorite_dish, container, false);
 
+		// Set view to variable
 		lvFavoriteRecipe = (ListView) RootView.findViewById(R.id.lvFavoriteRecipe);
+
 		// init db
 		dbHelper = new DBHelper(getActivity());
 		favoriteDAO = new FavoriteDAO(dbHelper);
 		listRecipe = favoriteDAO.all();
-		Log.d("listRecipe length", String.valueOf(listRecipe.size()));
+
 		// LIST - If list empty
 		if (listRecipe.size() == 0)
 			Toast.makeText(getActivity(), "Let's get some recipe in here", Toast.LENGTH_SHORT).show();
@@ -59,8 +61,6 @@ public class FavoriteDish extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				listRecipe = favoriteDAO.all();
-				Log.d("listRecipe.get(position)", String.valueOf(listRecipe.get(position)));
-				Toast.makeText(getActivity(), "List view item clicked", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getContext(), RecipeDetailActivity.class);
 				intent.putExtra("recipe", listRecipe.get(position));
 				startActivity(intent);

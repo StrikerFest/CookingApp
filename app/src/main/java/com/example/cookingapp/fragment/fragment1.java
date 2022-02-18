@@ -48,25 +48,7 @@ public class fragment1 extends Fragment {
 		recipe = (Recipe) getActivity().getIntent().getSerializableExtra("recipe");
 		tvRecipeName.setText(recipe.getName());
 
-		// IMAGE VIEW - set imageView to API's url
-//		URL newURL = null;
-//		// Create new URL which take the api's image url
-//		try {
-//			newURL = new URL(recipe.getImage());
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		// Download image from URL and get the value
-//		Bitmap mIcon_val = null;
-//		try {
-//			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
-//		// Set image view value
-//		ivRecipeImage.setImageBitmap(mIcon_val);
+        // Set image view value
 		Picasso.with(((MainActivity) context))
 				.load(recipe.getImage())
 				.into(ivRecipeImage);

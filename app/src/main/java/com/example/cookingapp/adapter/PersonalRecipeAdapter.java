@@ -48,6 +48,9 @@ public class PersonalRecipeAdapter extends BaseAdapter {
 	private DBHelper dbHelper;
 	private DAO<PersonalRecipe> personalRecipeDAO;
 
+	private TextView tvFoodName, tvIngredient, tvTag;
+	ImageView ivFoodImg, ivMenu, ivFavorite;
+
 	// Adapter constructor
 	public PersonalRecipeAdapter(Context context, List<PersonalRecipe> personalRecipeList) {
 		this.context = context;
@@ -73,8 +76,6 @@ public class PersonalRecipeAdapter extends BaseAdapter {
 
 	public void remove(int position) {
 		personalRecipeList.remove(personalRecipeList.get(position));
-		notifyDataSetChanged();
-		notifyDataSetInvalidated();
 	}
 
 	@Override
@@ -82,56 +83,24 @@ public class PersonalRecipeAdapter extends BaseAdapter {
 		if (convertView == null)
 			convertView = LayoutInflater.from(context).inflate(R.layout.recipe_item, parent, false);
 
-		// Set values
-		TextView tvFoodName, tvFoodDifficulty, tvFoodRating, tvIngredient, tvTag;
-		ImageView ivFoodImg, ivMenu, ivFavorite;
-
+		// Assign new DBHelper and DAO
 		dbHelper = new DBHelper((CookbookActivity) context);
 		personalRecipeDAO = new PersonalRecipeDAO(dbHelper);
 
 		// Find item by id
-		tvFoodName = convertView.findViewById(R.id.tvFoodName);
-		tvIngredient = convertView.findViewById(R.id.tvIngredient);
-		tvTag = convertView.findViewById(R.id.tvTag);
-
-		ivFoodImg = convertView.findViewById(R.id.ivFoodImg);
-
-		ivMenu = convertView.findViewById(R.id.ivMenu);
-		ivFavorite = convertView.findViewById(R.id.ivFavorite);
-
-		// On click
-
-		// Pop up menu
-
-		// Dialog
-
-		// Pop up extra
+		tvFoodName 		= convertView.findViewById(R.id.tvFoodName);
+		tvIngredient 	= convertView.findViewById(R.id.tvIngredient);
+		tvTag			= convertView.findViewById(R.id.tvTag);
+		ivFoodImg 		= convertView.findViewById(R.id.ivFoodImg);
+		ivMenu 			= convertView.findViewById(R.id.ivMenu);
+		ivFavorite 		= convertView.findViewById(R.id.ivFavorite);
 
 		// Config strictMode
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
 
-		// Get all item from fav food list
-		notifyDataSetChanged();
-
-//		ivFavorite.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				notifyDataSetChanged();
-//			}
-//		});
-
-
-
-
+		// Assign new update recipe dialog
 		recipeDialog = new RecipeUpdateDialog(context) {
-
-			@Override
-			public void show() {
-				super.show();
-
-			}
-
 			@Override
 			protected void passData(String name, String ingredient, String instruction, String tag) {
 				personalRecipeList.set(position, new PersonalRecipe(name,ingredient,instruction,tag));
@@ -139,11 +108,10 @@ public class PersonalRecipeAdapter extends BaseAdapter {
 			}
 		};
 
-//
+		// On menu button-looking image click
 		ivMenu.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(context, personalRecipeList.get(position).getName(), Toast.LENGTH_SHORT).show();
 
 				// Create popup menu
 				popupMenu = new PopupMenu(context.getApplicationContext(), ivMenu);
@@ -155,12 +123,9 @@ public class PersonalRecipeAdapter extends BaseAdapter {
 					public boolean onMenuItemClick(MenuItem menuItem) {
 						switch (menuItem.getItemId()){
 							case R.id.popup_menu_action1:
-//								Intent intent = new Intent(context,SecondActivity.class);
-//								intent.putExtra("contact", listContact.get(position));
-//								context.startActivity(intent);
 
+								// Get all item from personalRecipe database
 								personalRecipeList = personalRecipeDAO.all();
-								Log.d("listRecipe.get(position)", String.valueOf(personalRecipeList.get(position)));
 								notifyDataSetChanged();
 
 								Intent intentDetail = new Intent(context, PersonalRecipeDetailActivity.class);
@@ -173,10 +138,10 @@ public class PersonalRecipeAdapter extends BaseAdapter {
 								recipeDialog.show();
 								break;
 							case R.id.popup_menu_action3:
-								PersonalRecipe item = personalRecipeList.get(position);
-								if(personalRecipeDAO.delete(item.getId()) == position) {
 
-								}
+								// Delete item from the database - then from the current list
+								PersonalRecipe item = personalRecipeList.get(position);
+								personalRecipeDAO.delete(item.getId());
 								remove(position);
 								notifyDataSetChanged();
 								break;
@@ -184,13 +149,14 @@ public class PersonalRecipeAdapter extends BaseAdapter {
 						return false;
 					}
 				});
+
+				// Display popupMenu
 				popupMenu.show();
 			}
 		});
 
 		// Set data
 		tvFoodName.setText(personalRecipeList.get(position).getName());
-//		tvIngredient.setText(personalRecipeList.get(position).getIngredient());
 		tvTag.setText(personalRecipeList.get(position).getTag());
 		ivFoodImg.setImageResource(R.drawable.ic_baseline_fastfood_24);
 

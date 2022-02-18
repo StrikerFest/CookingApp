@@ -1,7 +1,6 @@
 package com.example.cookingapp.util;
 
 public class RecipeAPI {
-//	private static String API_KEY = "B08d5MEe9PjMGplKfukQkim42Hk8vO74";
 
 	// Get API with searchKey
 	public static String createURL(String searchKey){

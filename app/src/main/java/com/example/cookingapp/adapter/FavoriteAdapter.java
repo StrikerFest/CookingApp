@@ -45,6 +45,9 @@ public class FavoriteAdapter extends BaseAdapter {
 	private AlertDialog alertDialog;
 	private AlertDialog.Builder builder;
 
+	private TextView tvFoodName, tvFoodDifficulty, tvFoodRating, tvIngredient, tvTag;
+	private ImageView ivFoodImg, ivMenu, ivFavorite;
+
 	// Adapter constructor
 	public FavoriteAdapter(Context context, List<Recipe> listRecipe) {
 		this.context = context;
@@ -77,121 +80,104 @@ public class FavoriteAdapter extends BaseAdapter {
 		if (convertView == null)
 			convertView = LayoutInflater.from(context).inflate(R.layout.recipe_item, parent, false);
 
-		// Set values
-		TextView tvFoodName, tvFoodDifficulty, tvFoodRating, tvIngredient, tvTag;
-		ImageView ivFoodImg, ivMenu, ivFavorite;
-
-		dbHelper = new DBHelper( context);
+		// Initialize databaseHelper and DAO
+		dbHelper = new DBHelper(context);
 		favoriteDAO = new FavoriteDAO(dbHelper);
 
-		// Find item by id
+		// Assign view to variable
 		tvFoodName = convertView.findViewById(R.id.tvFoodName);
 		tvIngredient = convertView.findViewById(R.id.tvIngredient);
 		tvTag = convertView.findViewById(R.id.tvTag);
-
 		ivFoodImg = convertView.findViewById(R.id.ivFoodImg);
-
 		ivMenu = convertView.findViewById(R.id.ivMenu);
 		ivFavorite = convertView.findViewById(R.id.ivFavorite);
 
-		// On click
-
-		// Pop up menu
-
-		// Dialog
-
-		// Pop up extra
 
 		// Config strictMode
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
-
-//		ivFavorite.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				Toast.makeText(context.getApplicationContext(), "NANNA", Toast.LENGTH_SHORT).show();
-//				ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
-////				idTemp = listRecipe.get(position).getId();
-//				favoriteDAO.create(listRecipe.get(position));
-//			}
-//		});
 
 		// Get all item from fav food list
 		listTemp = favoriteDAO.all();
 		notifyDataSetChanged();
 
 		// If the item at the current position don't match any item in the fav food list
-		for (Recipe r : listTemp){
-			if (listRecipe.get(position).getId() != r.getId()){
+		for (Recipe r : listTemp) {
+			if (listRecipe.get(position).getId() != r.getId()) {
+				// Set favorite to empty
 				ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
 				notifyDataSetChanged();
 			}
 		}
 
 		// If the item at the current position  match any item in the fav food list
-		for (Recipe r : listTemp){
-			if (listRecipe.get(position).getId() == r.getId()){
+		for (Recipe r : listTemp) {
+			if (listRecipe.get(position).getId() == r.getId()) {
+				// Set favorite to selected
 				ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
 				notifyDataSetChanged();
+				// If there is a match in the fav list, break immediately
 				break;
 			}
 		}
 		notifyDataSetChanged();
 
+		// On favorite icon click
 		ivFavorite.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
+				// Check variable
 				boolean checkClick = false;
-				for (Recipe r : listTemp){
-					if (listRecipe.get(position).getId() != r.getId()){
-						Log.d("id of r1", String.valueOf(r.getId()));
-						Log.d("id of favrep1",valueOf(listRecipe.get(position).getId()));
-						checkClick = false;
+				for (Recipe r : listTemp) {
+					// If there wasn't any match in the fav list
+					if (listRecipe.get(position).getId() != r.getId()) {
 						notifyDataSetChanged();
 					}
-					else if(listRecipe.get(position).getId() == r.getId()) {
-						Log.d("id of r2", String.valueOf(r.getId()));
-						Log.d("id of favrep2",valueOf(listRecipe.get(position).getId()));
+					// If there is a match in the fav list
+					else if (listRecipe.get(position).getId() == r.getId()) {
 						checkClick = true;
 						break;
-					}
-					else{
-						Toast.makeText(context.getApplicationContext(), "We got a problem", Toast.LENGTH_SHORT).show();
 					}
 					notifyDataSetChanged();
 
 				}
-				if (checkClick){
+				// If there wasn't a match in the fav list
+				if (checkClick) {
+					// Create new alert dialog to warn if user want to remove favorite item
 					builder = new AlertDialog.Builder(context).
 							setTitle("Remove current recipe?").
 							setMessage("Do you want to remove this recipe off the favorite list").
 							setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialogInterface, int i) {
+									// If yes, set fav icon back to empty
 									ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
 
 									Recipe unFavRecipe = listRecipe.get(position);
-									Toast.makeText(context.getApplicationContext(), "Not fav: " + unFavRecipe.getName(), Toast.LENGTH_SHORT).show();
+									Toast.makeText(context.getApplicationContext(), "Remove favorite: " + unFavRecipe.getName(), Toast.LENGTH_SHORT).show();
 
+									// Delete recipe of the favorite list
 									favoriteDAO.delete(unFavRecipe.getId());
 									notifyDataSetChanged();
-
 								}
 
 							}).setNegativeButton("No", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
-							Toast.makeText(context,"Cancel deletion",Toast.LENGTH_SHORT).show();
+							// Cancel
+							Toast.makeText(context, "Cancel deletion", Toast.LENGTH_SHORT).show();
 						}
 					});
+
+					// Build and show the dialog
 					alertDialog = builder.create();
 					alertDialog.show();
 
 
-				}
-				else if (!checkClick) {
+				} else if (!checkClick) {
 
+					// If there is no match - Create a recipe in tne fav database - Set icon to selected
 					ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
 					Recipe favRecipe = listRecipe.get(position);
 
@@ -203,9 +189,10 @@ public class FavoriteAdapter extends BaseAdapter {
 				notifyDataSetChanged();
 			}
 		});
+
+		// Refresh list
 		listRecipe.clear();
 		listRecipe = favoriteDAO.all();
-
 
 		// Load image
 		Picasso.with(((CookbookActivity) context))

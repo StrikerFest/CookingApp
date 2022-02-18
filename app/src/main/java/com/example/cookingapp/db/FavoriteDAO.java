@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FavoriteDAO implements DAO<Recipe> {
-	private DBHelper dbHelper;
 
+	private DBHelper dbHelper;
 	public FavoriteDAO(DBHelper dbHelper) {
 		this.dbHelper = dbHelper;
 	}
@@ -22,8 +22,9 @@ public class FavoriteDAO implements DAO<Recipe> {
 		String sql = "SELECT * FROM favorite";
 		Cursor cursor = db.rawQuery(sql, null);
 
-		//
+		// Initialize list
 		List<Recipe> list = new ArrayList<>();
+
 		if (cursor.moveToFirst()) {
 			int idIndex = cursor.getColumnIndex("id");
 			int nameIndex = cursor.getColumnIndex("name");
@@ -32,12 +33,10 @@ public class FavoriteDAO implements DAO<Recipe> {
 
 			do {
 				Recipe item = new Recipe();
-//
 				item.setId(cursor.getLong(idIndex));
 				item.setName(cursor.getString(nameIndex));
 				item.setImage(cursor.getString(imageIndex));
 				item.setTag(cursor.getString(tagIndex));
-
 				list.add(item);
 			}
 			while (cursor.moveToNext());
@@ -81,7 +80,6 @@ public class FavoriteDAO implements DAO<Recipe> {
 
 		ContentValues contentValues = new ContentValues();
 		contentValues.put("id", item.getId());
-
 		contentValues.put("name", item.getName());
 		contentValues.put("image", item.getImage());
 		contentValues.put("tag", item.getTag());
@@ -96,7 +94,6 @@ public class FavoriteDAO implements DAO<Recipe> {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		ContentValues contentValues = new ContentValues();
 		contentValues.put("id", item.getId());
-
 		contentValues.put("name", item.getName());
 		contentValues.put("ingredient", item.getImage());
 		contentValues.put("tag", item.getTag());

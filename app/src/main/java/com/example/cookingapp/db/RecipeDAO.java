@@ -22,7 +22,7 @@ public class RecipeDAO implements DAO<Recipe> {
 		String sql = "SELECT * FROM recipe";
 		Cursor cursor = db.rawQuery(sql, null);
 
-		//
+		// Initialize list
 		List<Recipe> list = new ArrayList<>();
 		if (cursor.moveToFirst()) {
 			int idIndex = cursor.getColumnIndex("id");
@@ -32,12 +32,10 @@ public class RecipeDAO implements DAO<Recipe> {
 
 			do {
 				Recipe item = new Recipe();
-//
 				item.setId(cursor.getLong(idIndex));
 				item.setName(cursor.getString(nameIndex));
 				item.setImage(cursor.getString(imageIndex));
 				item.setTag(cursor.getString(tagIndex));
-
 				list.add(item);
 			}
 			while (cursor.moveToNext());

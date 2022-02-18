@@ -85,49 +85,23 @@ public class RecipeAdapter extends BaseAdapter {
 			convertView = LayoutInflater.from(context).inflate(R.layout.recipe_item, parent, false);
 
 		// Set values
-		TextView tvFoodName, tvFoodDifficulty, tvFoodRating, tvIngredient, tvTag;
+		TextView tvFoodName, tvTag;
 		ImageView ivFoodImg, ivMenu, ivFavorite;
 
-		dbHelper = new DBHelper((MainActivity) context);
+		// Assign new databaseHelper and DAO
+		dbHelper 	= new DBHelper((MainActivity) context);
 		favoriteDAO = new FavoriteDAO(dbHelper);
 
 		// Find item by id
-		tvFoodName = convertView.findViewById(R.id.tvFoodName);
-		tvIngredient = convertView.findViewById(R.id.tvIngredient);
-		tvTag = convertView.findViewById(R.id.tvTag);
-
-		ivFoodImg = convertView.findViewById(R.id.ivFoodImg);
-
-		ivMenu = convertView.findViewById(R.id.ivMenu);
-		ivFavorite = convertView.findViewById(R.id.ivFavorite);
-
-		// On click
-
-		// Pop up menu
-
-		// Dialog
-
-		// Pop up extra
+		tvFoodName 	= convertView.findViewById(R.id.tvFoodName);
+		tvTag 		= convertView.findViewById(R.id.tvTag);
+		ivFoodImg 	= convertView.findViewById(R.id.ivFoodImg);
+		ivMenu 		= convertView.findViewById(R.id.ivMenu);
+		ivFavorite 	= convertView.findViewById(R.id.ivFavorite);
 
 		// Config strictMode
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy);
-
-		// Download and set image from API
-//		URL newURL = null;
-//		try {
-//			newURL = new URL(listRecipe.get(position).getImage());
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//		Bitmap mIcon_val = null;
-//		try {
-//			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		ivFoodImg.setImageBitmap(mIcon_val);
-//		ivFoodImg.setImageResource(R.drawable.ic_baseline_fastfood_24);
 
 		// Get all item from fav food list
 		listTemp = favoriteDAO.all();
@@ -151,43 +125,41 @@ public class RecipeAdapter extends BaseAdapter {
 		}
 		notifyDataSetChanged();
 
-
+		// On fav icon click
 		ivFavorite.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
-//				idTemp = listRecipe.get(position).getId();
+				// checkClick variable to check weather an item is in fav list database or not
 				boolean checkClick = false;
 				for (Recipe r : listTemp){
+					// There was no match
 					if (listRecipe.get(position).getId() != r.getId()){
-						Log.d("id of r1", String.valueOf(r.getId()));
-						Log.d("id of favrep1",valueOf(listRecipe.get(position).getId()));
-						checkClick = false;
 						notifyDataSetChanged();
 					}
+					// There was a match - break
 					else if(listRecipe.get(position).getId() == r.getId()) {
-						Log.d("id of r2", String.valueOf(r.getId()));
-						Log.d("id of favrep2",valueOf(listRecipe.get(position).getId()));
 						checkClick = true;
 						break;
-					}
-					else{
-						Toast.makeText(context.getApplicationContext(), "We got a problem", Toast.LENGTH_SHORT).show();
 					}
 					notifyDataSetChanged();
 
 				}
+
+				// Update - There was a match - Delete the item out of the database
 				if (checkClick){
+					// Change icon to empty favorite icon
 					ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
 					notifyDataSetChanged();
 
 					Recipe unFavRecipe = listRecipe.get(position);
-					Toast.makeText(context.getApplicationContext(), "Not fav: " + unFavRecipe.getName(), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context.getApplicationContext(), "Remove favorite: " + unFavRecipe.getName(), Toast.LENGTH_SHORT).show();
 
 					favoriteDAO.delete(unFavRecipe.getId());
 				}
+				// Update - There wasn't a match - Add the item into the database
 				else if (!checkClick) {
-
+					// Change icon to selected favorite icon
 					ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_24);
 					Recipe favRecipe = listRecipe.get(position);
 					notifyDataSetChanged();
@@ -196,34 +168,18 @@ public class RecipeAdapter extends BaseAdapter {
 
 					long id = favoriteDAO.create(favRecipe);
 				}
-//				for (Recipe r : listTemp){
-//					if (listRecipe.get(position).getId() == r.getId()){
-//						ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
-//						notifyDataSetChanged();
-//						break;
-//					}
-//				}
-
-
-
-//				Log.d("listRecipe.get(position)", String.valueOf(listRecipe.get(position)));
-
-//				favRecipe.setId(listRecipe.get(position).getId());
-//
-//
-
 				notifyDataSetChanged();
 			}
 		});
 
-		// Thread
+		// Utilizing thread to help loading image faster
 		Runnable RecipeImageLoadThread = new RecipeImageLoadThread(listRecipe, ivFoodImg, position, context);
 		new Thread(RecipeImageLoadThread).start();
 
+		// On image view menu click
 		ivMenu.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(context, listRecipe.get(position).getName(), Toast.LENGTH_SHORT).show();
 
 				// Create popup menu
 				popupMenu = new PopupMenu(context.getApplicationContext(), ivMenu);
@@ -244,9 +200,6 @@ public class RecipeAdapter extends BaseAdapter {
 								intent.putExtra("recipe", listRecipe.get(position));
 								context.startActivity(intent);
 								break;
-//							case R.id.popup_menu_action2:
-//
-//								break;
 						}
 						return false;
 					}

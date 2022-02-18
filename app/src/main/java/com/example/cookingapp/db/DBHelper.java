@@ -15,8 +15,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		// Create table in Database
 
+		// Create table in Database
+		// Create recipe table
 		String sql = "CREATE TABLE recipe(" +
 				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
 				"name TEXT NOT NULL," +
@@ -38,6 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		db.execSQL(sql);
 
+		// Create favorite table
 		sql = "CREATE TABLE favorite(" +
 				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
 				"name TEXT NOT NULL," +
@@ -47,6 +49,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		db.execSQL(sql);
 
+		// Create personalRecipe
 		sql = "CREATE TABLE personalRecipe(" +
 				"id INTEGER PRIMARY KEY AUTOINCREMENT," +
 				"name TEXT NOT NULL," +
@@ -61,6 +64,5 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// Update table
 	}
 }

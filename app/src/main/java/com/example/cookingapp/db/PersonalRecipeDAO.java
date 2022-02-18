@@ -23,7 +23,7 @@ public class PersonalRecipeDAO implements DAO<PersonalRecipe> {
 		String sql = "SELECT * FROM personalRecipe";
 		Cursor cursor = db.rawQuery(sql, null);
 
-		//
+		// Initialize list
 		List<PersonalRecipe> list = new ArrayList<>();
 		if (cursor.moveToFirst()) {
 			int idIndex = cursor.getColumnIndex("id");
@@ -34,7 +34,6 @@ public class PersonalRecipeDAO implements DAO<PersonalRecipe> {
 
 			do {
 				PersonalRecipe item = new PersonalRecipe();
-//
 				item.setId(cursor.getLong(idIndex));
 				item.setName(cursor.getString(nameIndex));
 				item.setIngredient(cursor.getString(ingredientIndex));

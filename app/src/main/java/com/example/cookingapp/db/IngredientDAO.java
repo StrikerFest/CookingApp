@@ -22,7 +22,7 @@ public class IngredientDAO implements DAO<Ingredient> {
 		String sql = "SELECT * FROM Ingredient";
 		Cursor cursor = db.rawQuery(sql, null);
 
-		//
+		// Initialize list
 		List<Ingredient> list = new ArrayList<>();
 		if (cursor.moveToFirst()) {
 			int idIndex = cursor.getColumnIndex("id");
@@ -32,12 +32,10 @@ public class IngredientDAO implements DAO<Ingredient> {
 
 			do {
 				Ingredient item = new Ingredient();
-//
 				item.setId(cursor.getLong(idIndex));
 				item.setName(cursor.getString(nameIndex));
 				item.setAmount(cursor.getString(amountIndex));
 				item.setImage(cursor.getString(imageIndex));
-
 				list.add(item);
 			}
 			while (cursor.moveToNext());

@@ -28,12 +28,14 @@ public class VPAdapter extends FragmentPagerAdapter {
 		return fragmentArrayList.size();
 	}
 
+	// Add fragment and title to the arraylist
 	public void addFragment(Fragment fragment, String title){
 		fragmentArrayList.add(fragment);
 		fragmentTitle.add(title);
 
 	}
 
+	// Get current position fragment title
 	@Nullable
 	@Override
 	public CharSequence getPageTitle(int position) {

@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
 		btnSeafood.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				recipeCategoryCall("Seafood",recipeAdapter,listRecipe);
+				recipeCall("",recipeAdapter,listRecipe);
 			}
 		});
 

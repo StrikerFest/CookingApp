@@ -23,7 +23,6 @@ public class RecipeImageLoadThread implements Runnable {
 	private ImageView ivFoodImg;
 	private Context context;
 	private int position;
-	Bitmap mIcon_val = null;
 
 	public RecipeImageLoadThread(List<Recipe> listRecipe, ImageView ivFoodImg, int position, Context context) {
 		this.listRecipe = listRecipe;
@@ -34,19 +33,6 @@ public class RecipeImageLoadThread implements Runnable {
 
 	@Override
 	public void run() {
-//		 Download and set image from API
-//		URL newURL = null;
-//		try {
-//			newURL = new URL(listRecipe.get(position).getImage());
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		try {
-//			mIcon_val = BitmapFactory.decodeStream(newURL.openConnection().getInputStream());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 
 		try {
 			((MainActivity) context).runOnUiThread(new Runnable() {

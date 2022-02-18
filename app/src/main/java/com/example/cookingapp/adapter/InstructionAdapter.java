@@ -27,6 +27,7 @@ public class InstructionAdapter extends BaseAdapter {
 	private Context context;
 	private List<Instruction> listInstruction;
 	private ArrayList<Instruction> arraylist;
+	private TextView tvInstructionDescription;
 
 	// Adapter constructor
 	public InstructionAdapter(Context context, List<Instruction> listInstruction) {
@@ -60,20 +61,8 @@ public class InstructionAdapter extends BaseAdapter {
 		if(convertView == null)
 			convertView = LayoutInflater.from(context).inflate(R.layout.instruction_item,parent,false);
 
-		// Set values
-		TextView tvInstructionDescription;
-
 		// Find item by id
 		tvInstructionDescription = convertView.findViewById(R.id.tvInstructionDescription);
-
-
-		// On click
-
-		// Pop up menu
-
-		// Dialog
-
-		// Pop up extra
 
 		// Config strict mode to remove guard
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
